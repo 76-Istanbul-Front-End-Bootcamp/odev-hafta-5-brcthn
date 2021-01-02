@@ -32,5 +32,62 @@ document.querySelector("#reset").addEventListener("click", () => {
 });
 
 /* START CODING HERE */
+/* BIGGER 50k ACTION */
+document.querySelector("#populationBigger").addEventListener("click", () => {
+    const biggerData = data.filter((city) => {
+        return city.population > 500000;
+    });
+    createTableElements(biggerData, "allcities");
+});
+/* LAND AREA LESS THAN 1000 */
+document.querySelector("#landAreaLess").addEventListener("click", () => {
+    const lesserData = data.filter((land) => {
+        return land.landArea < 1000;
+    });
 
+    createTableElements(lesserData, "allcities");
+});
 
+/* city has population less than 100.000*/
+document.querySelector("#isPopulationLess").addEventListener("click", () => {
+    const lesserPopulation = data.some((city) => {
+        return city.population < 100000;
+    });
+    if (lesserPopulation) {
+        alert("YES")
+    } else {
+        alert("NO")
+    }
+});
+
+/* every city has land area bigger than 100*/
+document.querySelector("#isLandBigger").addEventListener("click", () => {
+    const biggerLandArea = data.every((city) => {
+        return city.landArea > 100;
+    });
+    if (biggerLandArea) {
+        alert("YES")
+    } else {
+        alert("NO")
+    }
+});
+
+/* select fill */
+const cities = data.map((city) => {
+    return city.name;
+})
+
+const select = document.querySelector("#selectcity");
+cities.forEach((city) => {
+    const optionElement = document.createElement("option");
+    optionElement.setAttribute("value", city);
+    optionElement.innerHTML = city;
+    select.appendChild(optionElement)
+})
+
+select.addEventListener("change", () => {
+    const selectedCity = data.filter((city) => {
+        return city.name === select.value
+    })
+    createTableElements(selectedCity, "singlecity");
+});
